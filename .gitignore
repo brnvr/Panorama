@@ -114,6 +114,10 @@ csx/
 # Windows Store app package directory
 AppPackages/
 
+#AppSettings
+
+appsettings.json
+
 # Others
 sql/
 *.Cache
