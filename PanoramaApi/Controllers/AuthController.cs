@@ -3,6 +3,9 @@ using PanoramaApi.Services;
 using PanoramaApi.Models.View;
 using System.Net;
 using Swashbuckle.AspNetCore.Annotations;
+using PanoramaApi.Gemini.Models;
+using PanoramaApi.Gemini;
+using PanoramaApi.Extensions;
 
 namespace PanoramaApi.Controllers
 {
@@ -21,11 +24,10 @@ namespace PanoramaApi.Controllers
         /// Authenticate user
         /// </summary>
         /// <param name="user">User credentials</param>
-        [SwaggerResponse((int)HttpStatusCode.NoContent)]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
-        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        /// <response code="204">Successful login</response>
+        /// <response code="401">Incorrect username or password</response>
         [HttpPost("[Action]")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public IActionResult Login(Login user)
         {
             return _webService.Perform(dbContext =>
@@ -42,13 +44,11 @@ namespace PanoramaApi.Controllers
         }
 
         /// <summary>
-        /// Authenticate user and returns JWT (system admin)
+        /// Authenticate user and return JWT (system admin)
         /// </summary>
         /// <param name="user">User credentials</param>
-        [SwaggerResponse((int)HttpStatusCode.NoContent)]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
-        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        /// <response code="200">Successful login</response>
+        /// <response code="401">Incorrect username or password</response>
         [HttpPost("Login/Token")]
         public IActionResult LoginGetToken(Login user)
         {

@@ -15,7 +15,7 @@ namespace PanoramaApi.Repositories
 
             if (review is null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"Review for movie {tmdbId} not found for user {userId}.");
+                throw new NotFoundException(EntityDescription, $"Review for movie {tmdbId} not found for user {userId}.");
             }
 
             return review;
@@ -31,6 +31,16 @@ namespace PanoramaApi.Repositories
             }
 
             return review;
+        }
+
+        public bool Exists(int userId, int tmdbId)
+        {
+            var results = Entities.Where(x => x.UserId == userId && x.TmdbId == tmdbId).Select(x => new
+            {
+                x.Id
+            });
+
+            return results.Count() > 0;
         }
     }
 }

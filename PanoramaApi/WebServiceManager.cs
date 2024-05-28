@@ -98,7 +98,7 @@ namespace PanoramaApi
             {
                 return Controller.Unauthorized(authEx.Message);
             }
-            else if (ex is EntityNotFoundException entryEx)
+            else if (ex is NotFoundException entryEx)
             {
                 return Controller.NotFound(entryEx.Message);
             }

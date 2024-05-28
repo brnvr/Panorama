@@ -31,7 +31,7 @@ namespace PanoramaApi.Services
                     throw new AuthenticationException("Not allowed.");
                 }
             }
-            catch (EntityNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 throw new AuthenticationException("Incorrect username/e-mail or password.", ex);
             }

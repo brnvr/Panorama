@@ -16,7 +16,7 @@ namespace PanoramaApi.Repositories
 
             if (entry == null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"movie {tmdbId} not found in list {listId}.");
+                throw new NotFoundException(EntityDescription, $"movie {tmdbId} not found in list {listId}.");
             }
 
             return entry;

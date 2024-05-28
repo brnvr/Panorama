@@ -2,9 +2,14 @@
 
 namespace PanoramaApi
 {
-    public class EntityNotFoundException : Exception
+    public class NotFoundException : Exception
     {
-        public EntityNotFoundException(string resource, string message, Exception? innerException = null) : base(message, innerException) { }
+        public string ResourceName { get; }
+
+        public NotFoundException(string resource, string message, Exception? innerException = null) : base(message, innerException)
+        {
+            ResourceName = resource;
+        }
     }
 
     public class AuthenticationException : Exception

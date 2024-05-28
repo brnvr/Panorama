@@ -32,7 +32,7 @@ namespace PanoramaApi.Repositories
 
             if (entity == null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"{EntityDescription} not found with id {id}.");
+                throw new NotFoundException(EntityDescription, $"{EntityDescription} not found with id {id}.");
             }
 
             return entity;

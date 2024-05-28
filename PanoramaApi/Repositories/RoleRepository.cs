@@ -17,7 +17,7 @@ namespace PanoramaApi.Repositories
 
             if (role == null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"No role found for user {userId}.");
+                throw new NotFoundException(EntityDescription, $"No role found for user {userId}.");
             }
 
             return role;
@@ -33,7 +33,7 @@ namespace PanoramaApi.Repositories
 
             if (role == null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"Role \"{name}\" not found.");
+                throw new NotFoundException(EntityDescription, $"Role \"{name}\" not found.");
             }
 
             return role;

@@ -15,13 +15,20 @@ namespace PanoramaApi.Tmdb
             Token = token;
         }
 
-        public async Task<SearchResults<MovieResult>> SearchMovies(string query, int page)
+        public async Task<SearchResults<MovieResult>> SearchMovies(string query, int page, int? year)
         {
-            return await MakeRequest<SearchResults<MovieResult>>("3/search/movie", client => client.GetAsync(""), new Dictionary<string, object>
+            var queryItems = new Dictionary<string, object>
             {
                 { "page", page },
                 { "query", query }
-            });
+            };
+
+            if (year != null)
+            {
+                queryItems.Add("year", year);
+            }
+
+            return await MakeRequest<SearchResults<MovieResult>>("3/search/movie", client => client.GetAsync(""), queryItems);
         }
 
         public async Task<MovieDetails> GetMovie(int id)
@@ -53,7 +60,7 @@ namespace PanoramaApi.Tmdb
 
                     if (obj is null)
                     {
-                        throw new Exception("Request return nothing.");
+                        throw new Exception("Request returned nothing.");
                     }
 
                     return obj;

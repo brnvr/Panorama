@@ -14,7 +14,7 @@ namespace PanoramaApi.Repositories
 
             if (movie is null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"Movie {tmdbId} is not in user {userId}'s \"watched\" list.");
+                throw new NotFoundException(EntityDescription, $"Movie {tmdbId} is not in user {userId}'s \"watched\" list.");
             }
 
             return movie;

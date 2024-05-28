@@ -1,6 +1,8 @@
-﻿using PanoramaApi.Models.Entities;
+﻿using PanoramaApi.Gemini;
+using PanoramaApi.Models.Entities;
 using PanoramaApi.Repositories;
 using PanoramaApi.Tmdb;
+using PanoramaApi.Tmdb.Models;
 
 namespace PanoramaApi.Services
 {
@@ -30,14 +32,12 @@ namespace PanoramaApi.Services
 
         protected async Task<Review> GetOrCreateReview(ReviewRepository repo, int userId, int tmdbId)
         {
-            try
+            if (repo.Exists(userId, tmdbId))
             {
                return repo.Find(userId, tmdbId);
             }
-            catch (EntityNotFoundException)
-            {
-                return await CreateReview(userId, tmdbId);
-            }
+               
+            return await CreateReview(userId, tmdbId);
         } 
 
         protected void RemoveReviewIfEmpty(ReviewRepository repo, Review review)
@@ -50,7 +50,9 @@ namespace PanoramaApi.Services
 
         protected async Task<Review> CreateReview(int userId, int tmdbId)
         {
-            await new TmdbApi(new Uri(AppSettings.TmdbApiUrl), AppSettings.TmdbToken).GetMovie(tmdbId);
+            var tmdb = new TmdbApi(new Uri(AppSettings.TmdbApiUrl), AppSettings.TmdbToken);
+
+            await tmdb.GetMovie(tmdbId);
 
             var review = new Review
             {

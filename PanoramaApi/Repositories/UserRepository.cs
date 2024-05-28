@@ -29,7 +29,7 @@ namespace PanoramaApi.Repositories
 
             if (user == null)
             {
-                throw new EntityNotFoundException(EntityDescription, $"User not found with username or email {username}.");
+                throw new NotFoundException(EntityDescription, $"User not found with username or email {username}.");
             }
 
             return user;
